@@ -17,4 +17,4 @@
       "resources/public/js"
       ["resources/public/js/vdom.js" (render "resources/public/js/vdom.js" data)]
       "resources/public/css"
-      "resources/public/css/{{path}}.css" (render "resources/public/css/styles.css" data))))
+      ["resources/public/css/{{path}}.css" (render "resources/public/css/styles.css" data)])))
