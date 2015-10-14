@@ -8,12 +8,13 @@
               :path (name-to-path name)}]
     (->files data
       ["index.html" (render "index.html" data)]
-      ["dev.html" (render "dev.html" data)]
       ["project.clj" (render "project.clj" data)]
       "externs"
       ["externs/vdom.js" (render "externs/vdom.js" data)]
       "src/{{path}}"
       ["src/{{path}}/core.cljs" (render "src/vdom_app/core.cljs" data)]
+      ["src/{{path}}/macros.clj" (render "src/vdom_app/macros.clj" data)]
+      ["resources/public/dev.html" (render "resources/public/dev.html" data)]
       "resources/public/js"
       ["resources/public/js/vdom.js" (render "resources/public/js/vdom.js" data)]
       "resources/public/css"
