@@ -6,14 +6,15 @@
 
 (enable-console-print!)
 
-(defn ui [model emit]
+(defn ui [emit model]
   [:div {}])
 
 (defn step [model action]
   (match action
     :no-op model))
 
-(def initial-model {})
+(def initial-model
+  {})
 
 (defonce actions (chan))
 (def emit #(put! actions %))
@@ -21,7 +22,7 @@
 (defonce models (foldp step initial-model actions))
 
 (defonce setup
-  (render! (async/map #(ui % emit) [models]) (.getElementById js/document "app")))
+  (render! (async/map #(ui emit %) [models]) (.getElementById js/document "app")))
 
 (defn figwheel-reload []
   (put! actions :no-op))

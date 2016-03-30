@@ -1,4 +1,4 @@
-(defproject vdom-app/lein-template "0.1.0"
+(defproject vdom-app/lein-template "0.2.0"
   :description "Lein template for creating vdom-based ClojureScript applications."
   :url "http://github.com/exupero/vdom-app"
   :license {:name "MIT License"
