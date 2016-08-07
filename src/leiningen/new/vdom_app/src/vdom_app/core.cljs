@@ -1,28 +1,23 @@
 (ns {{name}}.core
   (:require-macros [{{name}}.macros :refer [spy]])
-  (:require [cljs.core.async :as async :refer [chan put!]]
-            [cljs.core.match :refer-macros [match]]
-            [vdom.elm :refer [foldp render!]]))
+  (:require [vdom.core :refer [renderer]]))
 
 (enable-console-print!)
 
 (defn ui [emit model]
   [:div {}])
 
-(defn step [model action]
-  (match action
-    :no-op model))
+(defmulti emit (fn [t & _] t))
 
-(def initial-model
-  {})
+(defonce model (atom {}))
 
-(defonce actions (chan))
-(def emit #(put! actions %))
+(defonce render!
+  (let [r (renderer (.getElementById js/document "app"))]
+    #(r (ui emit @model))))
 
-(defonce models (foldp step initial-model actions))
+(defonce on-update
+  (add-watch model :rerender
+    (fn [_ _ _ model]
+      (render! model))))
 
-(defonce setup
-  (render! (async/map #(ui emit %) [models]) (.getElementById js/document "app")))
-
-(defn figwheel-reload []
-  (put! actions :no-op))
+(render! @model)
